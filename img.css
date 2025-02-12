@@ -1,0 +1,30 @@
+.profile-container {
+    width: 120px;  /* Adjust size as needed */
+    height: 120px;
+    border-radius: 50%;  /* Makes it a perfect circle */
+    overflow: hidden;  /* Prevents overflow */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* White border */
+    border: 1.8px solid white;
+    background-color: white; /* Background for a clean look */
+
+    /* Smooth transition */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Profile image styling */
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image fills the circle */
+    border-radius: 50%; /* Ensures the image itself is circular */
+}
+
+/* Hover effect */
+.profile-container:hover {
+    transform: scale(1.05); /* Slight zoom effect */
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.5); /* Soft white glow effect */
+}

@@ -1,0 +1,30 @@
+/* Import Poppins font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap');
+
+/* Icon container */
+.bishnu-icon {
+    display: inline-block;
+    background: linear-gradient(145deg, #30363b, #1e2225); /* Sleek dark gradient */
+    color: white;
+    font-size: 18px;
+    font-weight: 600; /* Bolder for clarity */
+    padding: 12px 24px; /* Increased padding for better balance */
+    border-radius: 8px; /* More refined curves */
+    border: 2px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+    text-align: center;
+    font-family: 'Poppins', sans-serif; /* Modern corporate font */
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.4), -3px -3px 8px rgba(255, 255, 255, 0.05); /* Neumorphic effect */
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+/* Hover effect */
+.bishnu-icon:hover {
+    background: linear-gradient(145deg, #3a4147, #25292c); /* Slight lightening */
+    color: #ffcc00; /* Premium gold effect */
+    border-color: #ffcc00; /* Matches the text */
+    transform: translateY(-2px); /* Lift effect */
+    box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.5), -5px -5px 12px rgba(255, 255, 255, 0.05);
+}

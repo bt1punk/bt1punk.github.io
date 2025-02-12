@@ -1,0 +1,74 @@
+/* Reset styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Navbar container */
+.navbar {
+    background-color: #25292c;
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Center the navigation links */
+    align-items: center; /* Align items vertically */
+    padding: 3px 0; /* Reduced vertical padding */
+    overflow: hidden; /* Prevents any extra scrolling */
+    
+    /* White border with rounded corners */
+    border: 1px solid white;
+    border-radius: 3px;
+}
+
+/* Navigation list */
+.navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    gap: 4px; /* Slightly adjusted for even spacing */
+    flex-wrap: nowrap; /* Prevents wrapping */
+    max-width: 100%; /* Ensures no horizontal overflow */
+}
+
+/* Navigation links */
+.navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 4px 8px; /* Reduced padding for a slimmer look */
+    display: block;
+    text-align: center;
+    transition: background 0.3s ease;
+    font-size: 14px; /* Balanced font size */
+}
+
+/* Hover effect */
+.navbar a:hover {
+    background-color: hsl(0, 0%, 10%);
+}
+
+/* Ensure list items do not float */
+.navbar li {
+    display: flex;
+text-decoration: none;
+    align-items: center;
+}
+
+/* FINAL RESPONSIVE FIX */
+@media screen and (max-width: 600px) {
+    .navbar ul {
+        gap: 1px; /* Minimal spacing for mobile */
+        padding: 0 4px; /* Adjust padding for perfect fit */
+    }
+
+    .navbar a {
+        padding: 4px 6px; /* Adjusted for compact fitting */
+        font-size: 12.5px; /* Slightly reduced for smaller screens */
+    }
+}
+
+html {
+  scroll-behavior: smooth;
+}
