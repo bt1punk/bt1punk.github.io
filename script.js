@@ -6,10 +6,17 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 renderer.setClearColor(0x202020); // Dark gray background
 
-// Add lighting
-const ambientLight = new THREE.AmbientLight(0xffffff, 1.5); // Soft light
-scene.add(ambientLight);
+// Add OrbitControls (for moving the model)
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true; // Smooth movement
+controls.dampingFactor = 0.05;
+controls.screenSpacePanning = false;
+controls.minDistance = 1; // Min zoom
+controls.maxDistance = 10; // Max zoom
 
+// Add lighting
+const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
+scene.add(ambientLight);
 const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
 directionalLight.position.set(5, 5, 5);
 scene.add(directionalLight);
@@ -25,8 +32,8 @@ loader.load('model.glb', function (gltf) {
     const center = box.getCenter(new THREE.Vector3());
     const size = box.getSize(new THREE.Vector3());
 
-    model.position.sub(center); // Center the model
-    model.scale.set(1, 1, 1); // Adjust scale if needed
+    model.position.sub(center);
+    model.scale.set(1, 1, 1);
 
     // Adjust camera based on model size
     camera.position.set(0, size.y * 1.5, size.z * 2);
@@ -42,9 +49,10 @@ window.addEventListener('resize', () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-// Animate the scene
+// Animate scene
 function animate() {
     requestAnimationFrame(animate);
+    controls.update(); // Update controls on each frame
     renderer.render(scene, camera);
 }
 animate();
