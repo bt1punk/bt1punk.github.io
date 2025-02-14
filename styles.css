@@ -1,23 +1,23 @@
-/* General Styles */
+/* Global Styles */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    background: #f5f5f5;
-    color: #222;
+    background: #0d1b2a;
+    color: #ffffff;
     text-align: center;
     transition: background 0.3s ease, color 0.3s ease;
 }
 
 /* Dark Mode */
 body.dark-mode {
-    background: #222;
-    color: #f5f5f5;
+    background: #ffffff;
+    color: #0d1b2a;
 }
 
 /* Navbar */
 .navbar {
-    background: #222;
+    background: rgba(13, 27, 42, 0.9);
     padding: 15px 20px;
     position: fixed;
     top: 0;
@@ -38,16 +38,16 @@ body.dark-mode {
 
 /* Logo */
 .logo {
-    font-size: 22px;
+    font-size: 24px;
+    font-weight: 600;
     color: white;
-    font-weight: bold;
     text-decoration: none;
 }
 .logo span {
     color: #ffcc00;
 }
 
-/* Nav Links */
+/* Navigation Links */
 .nav-links {
     list-style: none;
     display: flex;
@@ -84,20 +84,53 @@ body.dark-mode {
     cursor: pointer;
 }
 
-/* Mobile Menu */
-.menu-toggle {
-    display: none;
-    font-size: 26px;
-    color: white;
-    cursor: pointer;
+/* Sections */
+.wrapper {
+    margin-top: 80px;
+    padding: 40px;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .menu-toggle {
-        display: block;
-    }
+.section {
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+}
 
+.section.active {
+    display: block;
+}
+
+/* Content Box */
+.content {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 10px;
+    max-width: 600px;
+    margin: auto;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+h1, h2 {
+    font-weight: 600;
+}
+
+h1 span {
+    color: #ffcc00;
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Menu */
+@media (max-width: 768px) {
     .nav-links {
         display: none;
         flex-direction: column;
@@ -118,27 +151,4 @@ body.dark-mode {
     .nav-links li {
         margin: 10px 0;
     }
-}
-
-/* Wrapper */
-.wrapper {
-    margin-top: 80px;
-    padding: 20px;
-}
-
-/* Sections */
-.section {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    visibility: hidden;
-    position: absolute;
-    width: 100%;
-}
-
-.section.active {
-    opacity: 1;
-    transform: translateY(0);
-    visibility: visible;
-    position: relative;
 }
