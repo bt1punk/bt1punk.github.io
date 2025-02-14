@@ -1,30 +1,37 @@
-function showSection(sectionId) {
-    // Hide all sections
-    document.querySelectorAll('.page').forEach(section => {
-        section.classList.remove('active');
-    });
+// Toggle mobile menu and change hamburger to cross
+function toggleMenu() {
+    let menu = document.getElementById("nav-menu");
+    let icon = document.getElementById("menu-icon");
 
-    // Show the selected section
-    document.getElementById(sectionId).classList.add('active');
+    menu.classList.toggle("active");
 
-    // Update URL without refreshing
-    history.pushState({ section: sectionId }, "", `#${sectionId}`);
+    // Change icon based on menu state
+    if (menu.classList.contains("active")) {
+        icon.innerHTML = "✖"; // Change to cross
+    } else {
+        icon.innerHTML = "☰"; // Change back to hamburger
+    }
 }
 
-// Handle back/forward navigation
-window.addEventListener("popstate", function(event) {
-    if (event.state && event.state.section) {
-        showSection(event.state.section);
-    }
-});
+// Function to show selected section smoothly
+function showSection(sectionId) {
+    document.querySelectorAll(".page").forEach(page => {
+        page.classList.remove("active");
+        page.style.display = "none";
+    });
 
-// Load the section from the URL on first visit
-document.addEventListener("DOMContentLoaded", function () {
-    const sectionFromURL = window.location.hash.replace("#", "") || "home";
-    showSection(sectionFromURL);
-});
+    // Activate selected section
+    const activeSection = document.getElementById(sectionId);
+    activeSection.style.display = "block";
 
-// Toggle mobile menu
-function toggleMenu() {
-    document.querySelector("nav ul").classList.toggle("show");
+    // Delay adding the class for smooth transition
+    setTimeout(() => {
+        activeSection.classList.add("active");
+    }, 10);
+
+    // Close mobile menu after selection
+    let menu = document.getElementById("nav-menu");
+    let icon = document.getElementById("menu-icon");
+    menu.classList.remove("active");
+    icon.innerHTML = "☰"; // Reset icon to hamburger
 }
