@@ -1,135 +1,70 @@
-/* Reset & Global Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    text-decoration: none;
-    list-style: none;
-    font-family: 'Inter', sans-serif;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bishnu Timilsina | Front Desk Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
 
-body {
-    background-color: #1a1a1a;
-    color: #e0e0e0;
-    text-align: center;
-    overflow-x: hidden; /* Prevents horizontal scrolling */
-}
+    <!-- Wrapper to make it app-like -->
+    <div id="wrapper">
 
-/* Wrapper for App-Like Behavior */
-#wrapper {
-    max-width: 1200px;
-    margin: auto;
-    overflow: hidden;
-}
+        <!-- Navigation Bar -->
+        <nav>
+            <div class="logo">Bishnu Timilsina</div>
+            <div id="menu-icon" class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <ul id="nav-menu">
+                <li><a href="#" onclick="showSection('home')">Home</a></li>
+                <li><a href="#" onclick="showSection('about')">About</a></li>
+                <li><a href="#" onclick="showSection('skills')">Skills</a></li>
+                <li><a href="#" onclick="showSection('contact')">Contact</a></li>
+            </ul>
+        </nav>
 
-/* Navbar */
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #121212;
-    color: white;
-    padding: 15px 20px;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-}
+        <!-- Sections -->
+        <div id="content">
+            <section id="home" class="page active">
+                <div class="container">
+                    <h1>Welcome</h1>
+                    <p>I'm <b>Bishnu Timilsina</b>, a Front Desk Manager dedicated to providing exceptional customer service and seamless office management.</p>
+                    <img src="images/front-desk.jpg" alt="Front Desk Image">
+                </div>
+            </section>
 
-nav .logo {
-    font-size: 22px;
-    font-weight: 600;
-}
+            <section id="about" class="page">
+                <div class="container">
+                    <h1>About Me</h1>
+                    <p>With extensive experience in front-desk operations, I specialize in customer relations, administrative efficiency, and professional service.</p>
+                </div>
+            </section>
 
-/* Navigation Menu */
-nav ul {
-    display: flex;
-}
+            <section id="skills" class="page">
+                <div class="container">
+                    <h1>Skills</h1>
+                    <ul>
+                        <li>✔️ Customer Service Excellence</li>
+                        <li>✔️ Multitasking & Problem-Solving</li>
+                        <li>✔️ Scheduling & Office Coordination</li>
+                        <li>✔️ Team Leadership & Training</li>
+                    </ul>
+                </div>
+            </section>
 
-nav ul li {
-    margin: 0 15px;
-}
+            <section id="contact" class="page">
+                <div class="container">
+                    <h1>Contact</h1>
+                    <p>Email: <a href="mailto:your@email.com">your@email.com</a></p>
+                    <p>LinkedIn: <a href="https://linkedin.com/in/yourprofile" target="_blank">linkedin.com/in/yourprofile</a></p>
+                    <p>Phone: +123-456-7890</p>
+                </div>
+            </section>
+        </div>
 
-nav ul li a {
-    color: #e0e0e0;
-    font-size: 18px;
-    transition: 0.3s;
-}
+    </div>
 
-nav ul li a:hover {
-    color: #00adb5;
-}
-
-/* Hamburger Menu (Mobile) */
-.menu-toggle {
-    font-size: 26px;
-    cursor: pointer;
-    display: none;
-}
-
-/* Sections */
-#content {
-    margin-top: 70px;
-}
-
-.page {
-    visibility: hidden;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    height: 0;
-    overflow: hidden;
-}
-
-.page.active {
-    visibility: visible;
-    opacity: 1;
-    transform: translateY(0);
-    height: auto;
-    overflow: visible;
-}
-
-/* Containers */
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    background: #222;
-    padding: 30px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-}
-
-/* Images */
-img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin-top: 20px;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .menu-toggle {
-        display: block;
-    }
-
-    nav ul {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 60px;
-        right: 0;
-        background: #121212;
-        width: 100%;
-        text-align: center;
-    }
-
-    nav ul.active {
-        display: flex;
-    }
-
-    nav ul li {
-        margin: 10px 0;
-    }
-}
+</body>
+</html>
