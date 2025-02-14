@@ -3,60 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | Bishnu Timilsina</title>
+    <title>Bishnu Timilsina | Front Desk Manager</title>
     <link rel="stylesheet" href="styles.css">
     <script defer src="script.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Navigation Menu -->
+    <!-- Navigation Bar -->
     <nav>
         <div class="logo">Bishnu Timilsina</div>
-        <ul>
+        <div id="menu-icon" class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <ul id="nav-menu">
             <li><a href="#" onclick="showSection('home')">Home</a></li>
-            <li><a href="#" onclick="showSection('intro')">Intro</a></li>
-            <li><a href="#" onclick="showSection('work')">Work</a></li>
             <li><a href="#" onclick="showSection('about')">About</a></li>
+            <li><a href="#" onclick="showSection('skills')">Skills</a></li>
             <li><a href="#" onclick="showSection('contact')">Contact</a></li>
         </ul>
-        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
     </nav>
 
-    <!-- Sections (Only Home is visible by default) -->
+    <!-- Sections -->
     <div id="content">
         <section id="home" class="page active">
-            <h1>Welcome</h1>
-            <p>I'm Bishnu Timilsina, a Front Desk Manager passionate about delivering exceptional service.</p>
-            <img src="images/home.jpg" alt="Home Image">
-        </section>
-
-        <section id="intro" class="page">
-            <h1>Introduction</h1>
-            <p>With years of experience in customer service and office management, I ensure smooth and efficient front-desk operations.</p>
-            <img src="images/intro.jpg" alt="Intro Image">
-        </section>
-
-        <section id="work" class="page">
-            <h1>My Work</h1>
-            <ul>
-                <li>Managed high-volume front desk operations</li>
-                <li>Implemented customer service improvements</li>
-                <li>Organized corporate meetings and events</li>
-            </ul>
-            <img src="images/work.jpg" alt="Work Image">
+            <div class="container">
+                <h1>Welcome</h1>
+                <p>I'm <b>Bishnu Timilsina</b>, a Front Desk Manager dedicated to providing exceptional customer service and seamless office management.</p>
+                <img src="images/front-desk.jpg" alt="Front Desk Image">
+            </div>
         </section>
 
         <section id="about" class="page">
-            <h1>About Me</h1>
-            <p>I specialize in handling guest relations, administrative tasks, and ensuring a seamless front-office experience.</p>
-            <img src="images/about.jpg" alt="About Image">
+            <div class="container">
+                <h1>About Me</h1>
+                <p>With extensive experience in front-desk operations, I specialize in customer relations, administrative efficiency, and professional service.</p>
+            </div>
+        </section>
+
+        <section id="skills" class="page">
+            <div class="container">
+                <h1>Skills</h1>
+                <ul>
+                    <li>✔️ Customer Service Excellence</li>
+                    <li>✔️ Multitasking & Problem-Solving</li>
+                    <li>✔️ Scheduling & Office Coordination</li>
+                    <li>✔️ Team Leadership & Training</li>
+                </ul>
+            </div>
         </section>
 
         <section id="contact" class="page">
-            <h1>Contact Me</h1>
-            <p>Email: <a href="mailto:your@email.com">your@email.com</a></p>
-            <p>LinkedIn: <a href="https://linkedin.com/in/yourprofile" target="_blank">linkedin.com/in/yourprofile</a></p>
-            <p>Phone: +123-456-7890</p>
+            <div class="container">
+                <h1>Contact</h1>
+                <p>Email: <a href="mailto:your@email.com">your@email.com</a></p>
+                <p>LinkedIn: <a href="https://linkedin.com/in/yourprofile" target="_blank">linkedin.com/in/yourprofile</a></p>
+                <p>Phone: +123-456-7890</p>
+            </div>
         </section>
     </div>
 
