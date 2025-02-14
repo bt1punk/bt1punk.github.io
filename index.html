@@ -3,46 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avaturn Integration</title>
-    <script type="module">
-        import { AvaturnSDK } from "https://cdn.jsdelivr.net/npm/@avaturn/sdk/dist/index.js";
-
-        function loadAvaturn() {
-            const container = document.getElementById("avaturn-sdk-container");
-            const subdomain = "demo"; // Replace with your Avaturn subdomain
-            const url = `https://${subdomain}.avaturn.dev`;
-
-            const sdk = new AvaturnSDK();
-            sdk.init(container, { url }).then(() => {
-                sdk.on("export", (data) => {
-                    alert("Avatar Exported! Check Console for Details.");
-                    console.log("Exported Avatar Data:", data);
-                    
-                    // Display the avatar in model-viewer
-                    document.getElementById("avatar-viewer").setAttribute("src", data.avatarUrl);
-                });
-            });
+    <title>GLB Viewer (No Zoom, No Scroll)</title>
+    <script type="module" src="https://unpkg.com/@google/model-viewer"></script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden; /* Prevent scrolling */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f4f4f4;
         }
-
-        if (document.readyState === "loading") {
-            document.addEventListener("DOMContentLoaded", loadAvaturn);
-        } else {
-            loadAvaturn();
+        model-viewer {
+            width: 100%;
+            height: 100vh;
+            pointer-events: none; /* Prevent user interactions like zoom */
         }
-
-        window.loadAvaturn = loadAvaturn;
-    </script>
+    </style>
 </head>
 <body>
 
-    <h1>Avaturn 3D Avatar Creator</h1>
-
-    <!-- Avaturn SDK Container -->
-    <div id="avaturn-sdk-container" style="width: 100%; height: 600px;"></div>
-
-    <h2>Your Exported 3D Avatar:</h2>
-    <model-viewer id="avatar-viewer" auto-rotate camera-controls style="width: 100%; height: 500px;"></model-viewer>
-    <script type="module" src="https://unpkg.com/@google/model-viewer"></script>
+    <model-viewer 
+        src="model.glb"
+        auto-rotate 
+        disable-zoom 
+        camera-controls
+        interaction-prompt="none">
+    </model-viewer>
 
 </body>
 </html>
