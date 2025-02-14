@@ -3,28 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bishnu Timilsina - 3D Model</title>
+    <title>3D Model</title>
     <script type="module" src="https://unpkg.com/@google/model-viewer"></script>
     <style>
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
             background: #f4f4f4;
-            text-align: center;
-        }
-        #intro {
-            padding: 20px;
-            background: #222;
-            color: white;
-        }
-        #container {
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
         model-viewer {
             width: 100%;
-            height: 500px;
+            height: 100%;
             touch-action: none; /* Prevents page scroll inside the model */
             background-color: transparent;
         }
@@ -32,39 +24,22 @@
 </head>
 <body>
 
-    <!-- Introduction Section -->
-    <div id="intro">
-        <h1>Bishnu Timilsina</h1>
-        <p>Welcome to my 3D portfolio! I am a passionate professional working as a <strong>Front Desk Manager</strong>. 
-           I believe in creating a warm and welcoming experience for guests while managing daily operations efficiently.</p>
-    </div>
-
-    <!-- Content Container -->
-    <div id="container">
-        <h2>Test02</h2>
-        <p>Touch and drag the model to rotate. Scroll the page normally anywhere else.</p>
-
-        <!-- 3D Model Viewer with Background -->
-        <model-viewer 
-            id="avatar"
-            src="model.glb" 
-            auto-rotate 
-            disable-zoom 
-            camera-controls 
-            animation-name="Idle"
-            animation-crossfade-duration="1000"
-            interaction-prompt="none"
-            camera-orbit="0deg 90deg 3m"  
-            min-camera-orbit="auto 90deg auto"  
-            max-camera-orbit="auto 90deg auto"
-            shadow-intensity="1"
-            exposure="1"
-            environment-image="https://modelviewer.dev/shared-assets/environments/moon_1k.hdr">
-        </model-viewer>
-
-        <h2>About Me</h2>
-        <p>I have experience managing front desk operations, ensuring excellent customer service, and making guests feel at home. My goal is to create a welcoming and efficient environment for everyone.</p>
-    </div>
+    <!-- 3D Model Viewer -->
+    <model-viewer 
+        src="model.glb" 
+        auto-rotate 
+        disable-zoom 
+        camera-controls 
+        animation-name="Idle"
+        animation-crossfade-duration="1000"
+        interaction-prompt="none"
+        camera-orbit="0deg 90deg 3m"  
+        min-camera-orbit="auto 90deg auto"  
+        max-camera-orbit="auto 90deg auto"
+        shadow-intensity="1"
+        exposure="1"
+        environment-image="https://modelviewer.dev/shared-assets/environments/moon_1k.hdr">
+    </model-viewer>
 
 </body>
 </html>
