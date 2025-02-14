@@ -3,27 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animated GLB Model</title>
+    <title>Bishnu Timilsina - 3D Model</title>
     <script type="module" src="https://unpkg.com/@google/model-viewer"></script>
     <style>
         body {
             margin: 0;
             overflow: hidden; /* Prevents scrolling */
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
             height: 100vh;
             background: #f4f4f4;
         }
+        #intro {
+            text-align: center;
+            padding: 10px;
+            font-family: Arial, sans-serif;
+            background: #222;
+            color: white;
+            width: 100%;
+        }
         model-viewer {
             width: 100%;
-            height: 100vh;
+            height: 85vh;
             pointer-events: auto; /* Allows interaction but disables zoom */
         }
     </style>
 </head>
 <body>
 
+    <!-- Introduction Section -->
+    <div id="intro">
+        <h1>Bishnu Timilsina</h1>
+        <p>Welcome to my 3D portfolio! I am a passionate professional working as a <strong>Front Desk Manager</strong>. 
+           I believe in creating a warm and welcoming experience for guests while managing daily operations efficiently.</p>
+    </div>
+
+    <!-- 3D Model Viewer -->
     <model-viewer 
         src="model.glb" 
         auto-rotate 
