@@ -1,0 +1,127 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f5f5f5;
+    text-align: center;
+}
+
+/* Navbar */
+.navbar {
+    background: #222;
+    padding: 15px 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    max-width: 1200px;
+}
+
+/* Logo */
+.logo {
+    font-size: 22px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+.logo span {
+    color: #ffcc00;
+}
+
+/* Nav Links */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    display: inline-block;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 8px 15px;
+    transition: 0.3s ease;
+    border-radius: 4px;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    background: #ffcc00;
+    color: black;
+}
+
+/* Mobile Menu */
+.menu-toggle {
+    display: none;
+    font-size: 26px;
+    color: white;
+    cursor: pointer;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        background: rgba(0, 0, 0, 0.9);
+        border-radius: 5px;
+        width: 200px;
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+
+    .nav-links li {
+        margin: 10px 0;
+    }
+}
+
+/* Wrapper */
+.wrapper {
+    margin-top: 80px;
+    padding: 20px;
+}
+
+/* Sections */
+.section {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    visibility: hidden;
+    position: absolute;
+    width: 100%;
+}
+
+.section.active {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    position: relative;
+}
