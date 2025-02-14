@@ -24,7 +24,7 @@
         }
         model-viewer {
             width: 100%;
-            height: 500px; /* Adjust height to allow scrolling */
+            height: 600px; /* Increased height for better visibility */
             pointer-events: auto; /* Allows interaction but disables zoom */
         }
     </style>
@@ -52,9 +52,10 @@
             animation-name="Idle"
             animation-crossfade-duration="1000"
             interaction-prompt="none"
-            camera-orbit="0deg 90deg 3m"
+            camera-orbit="0deg 90deg 5m"  <!-- Increased distance -->
             min-camera-orbit="auto 90deg auto"  
-            max-camera-orbit="auto 90deg auto">
+            max-camera-orbit="auto 90deg auto"
+            field-of-view="30deg">  <!-- Narrower FOV to fit the model -->
         </model-viewer>
 
         <h2>About Me</h2>
