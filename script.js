@@ -1,7 +1,7 @@
 // Toggle mobile menu and change hamburger to cross
 function toggleMenu() {
-    let menu = document.getElementById("nav-menu");
-    let icon = document.getElementById("menu-icon");
+    var menu = document.getElementById("nav-menu");
+    var icon = document.getElementById("menu-icon");
 
     menu.classList.toggle("active");
 
@@ -17,21 +17,15 @@ function toggleMenu() {
 function showSection(sectionId) {
     document.querySelectorAll(".page").forEach(page => {
         page.classList.remove("active");
-        page.style.display = "none";
     });
 
     // Activate selected section
-    const activeSection = document.getElementById(sectionId);
-    activeSection.style.display = "block";
-
-    // Delay adding the class for smooth transition
-    setTimeout(() => {
-        activeSection.classList.add("active");
-    }, 10);
+    var activeSection = document.getElementById(sectionId);
+    activeSection.classList.add("active");
 
     // Close mobile menu after selection
-    let menu = document.getElementById("nav-menu");
-    let icon = document.getElementById("menu-icon");
+    var menu = document.getElementById("nav-menu");
+    var icon = document.getElementById("menu-icon");
     menu.classList.remove("active");
     icon.innerHTML = "☰"; // Reset icon to hamburger
 }
