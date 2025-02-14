@@ -1,30 +1,21 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const savedSection = localStorage.getItem("activeSection") || "home";
-    navigateTo(savedSection, false); // Load last section on page load
+function loadPage(page) {
+    fetch(page)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("content").innerHTML = data;
+            history.pushState({ page: page }, "", page);
+        })
+        .catch(error => console.error("Error loading page:", error));
+}
+
+// Handle back/forward navigation
+window.addEventListener("popstate", function(event) {
+    if (event.state && event.state.page) {
+        loadPage(event.state.page);
+    }
 });
 
-function navigateTo(sectionId, save = true) {
-    // Prevent navigating to non-existing sections
-    const section = document.getElementById(sectionId);
-    if (!section) return;
-
-    document.querySelectorAll(".section").forEach(section => {
-        section.classList.remove("active");
-    });
-
-    setTimeout(() => {
-        section.classList.add("active");
-    }, 50);
-
-    // Save last visited section if needed
-    if (save) {
-        localStorage.setItem("activeSection", sectionId);
-    }
-
-    // Close mobile menu after clicking a link
-    document.getElementById("navLinks").classList.remove("show");
-}
-
-function toggleMenu() {
-    document.getElementById("navLinks").classList.toggle("show");
-}
+// Load default page on first visit
+document.addEventListener("DOMContentLoaded", function () {
+    loadPage("home.html");
+});
