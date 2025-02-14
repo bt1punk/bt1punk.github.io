@@ -24,8 +24,8 @@
         }
         model-viewer {
             width: 100%;
-            height: 600px; /* Increased height for better visibility */
-            pointer-events: auto; /* Allows interaction but disables zoom */
+            height: 500px;
+            pointer-events: none; /* Disables interaction initially */
         }
     </style>
 </head>
@@ -40,11 +40,12 @@
 
     <!-- Content Container -->
     <div id="container">
-        <h2>My 3D Avatar</h2>
-        <p>Here is a digital representation of me! You can rotate the model horizontally.</p>
+        <h2>Testing 3d model</h2>
+        <p>Click or tap on the model to interact with it. Scroll the page normally anywhere else.</p>
 
         <!-- 3D Model Viewer -->
         <model-viewer 
+            id="avatar"
             src="model.glb" 
             auto-rotate 
             disable-zoom 
@@ -52,15 +53,26 @@
             animation-name="Idle"
             animation-crossfade-duration="1000"
             interaction-prompt="none"
-            camera-orbit="0deg 90deg 5m"  <!-- Increased distance -->
+            camera-orbit="0deg 90deg 3m"  
             min-camera-orbit="auto 90deg auto"  
-            max-camera-orbit="auto 90deg auto"
-            field-of-view="30deg">  <!-- Narrower FOV to fit the model -->
+            max-camera-orbit="auto 90deg auto">
         </model-viewer>
 
         <h2>About Me</h2>
         <p>I have experience managing front desk operations, ensuring excellent customer service, and making guests feel at home. My goal is to create a welcoming and efficient environment for everyone.</p>
     </div>
+
+    <script>
+        const modelViewer = document.getElementById("avatar");
+
+        modelViewer.addEventListener("pointerdown", () => {
+            modelViewer.style.pointerEvents = "auto"; // Enable model interaction when clicked
+        });
+
+        document.addEventListener("pointerup", () => {
+            modelViewer.style.pointerEvents = "none"; // Disable interaction after releasing
+        });
+    </script>
 
 </body>
 </html>
