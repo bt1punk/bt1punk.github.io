@@ -83,6 +83,8 @@ Visitor</h1>
 
 <h2 class="major">Intro</h2>
 
+<script type="module" src="https://unpkg.com/@google/model-viewer"></script>
+
 <model-viewer 
     src="model.glb" 
     auto-rotate 
@@ -94,12 +96,12 @@ Visitor</h1>
     camera-orbit="0deg 90deg 3m"  
     min-camera-orbit="0deg 90deg 3m"  
     max-camera-orbit="360deg 90deg 3m"
-    touch-action="none"  
-    disable-pan
-    disable-tap
+    touch-action="none"  <!-- Prevents touch-based movement -->
+    disable-pan  <!-- Prevents shifting up/down -->
     environment-image="https://modelviewer.dev/shared-assets/environments/moon_1k.hdr"
     style="width: 100%; height: 500px; background-color: transparent; pointer-events: auto;">
 </model-viewer>
+
 								<p>I’m Bishnu Timilsina, a dedicated Front Desk Manager & Receptionist with a strong focus on professionalism, efficiency, and customer service. I specialize in managing front desk operations, ensuring seamless guest experiences, and maintaining a welcoming environment.</p>
 							</article> 
 
