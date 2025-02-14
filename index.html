@@ -5,22 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bishnu Timilsina | Portfolio</title>
     <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
 </head>
 <body>
 
+    <!-- Navigation Bar -->
     <nav>
         <ul>
-            <li><a href="#" onclick="loadPage('home.html')">Home</a></li>
-            <li><a href="#" onclick="loadPage('about.html')">About</a></li>
-            <li><a href="#" onclick="loadPage('projects.html')">Projects</a></li>
-            <li><a href="#" onclick="loadPage('contact.html')">Contact</a></li>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#intro">Intro</a></li>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
 
-    <div id="content">
-        <!-- Dynamic content will be loaded here -->
-    </div>
+    <!-- Sections -->
+    <section id="home">
+        <h1>Welcome to My Portfolio</h1>
+        <p>I'm Bishnu Timilsina, a Front Desk Manager passionate about delivering exceptional service.</p>
+        <img src="images/home.jpg" alt="Home Image">
+    </section>
 
-    <script src="script.js"></script>
+    <section id="intro">
+        <h1>Introduction</h1>
+        <p>With years of experience in customer service and office management, I ensure smooth and efficient front-desk operations.</p>
+        <img src="images/intro.jpg" alt="Intro Image">
+    </section>
+
+    <section id="work">
+        <h1>My Work</h1>
+        <ul>
+            <li>Managed high-volume front desk operations</li>
+            <li>Implemented customer service improvements</li>
+            <li>Organized corporate meetings and events</li>
+        </ul>
+        <img src="images/work.jpg" alt="Work Image">
+    </section>
+
+    <section id="about">
+        <h1>About Me</h1>
+        <p>I specialize in handling guest relations, administrative tasks, and ensuring a seamless front-office experience.</p>
+        <img src="images/about.jpg" alt="About Image">
+    </section>
+
+    <section id="contact">
+        <h1>Contact Me</h1>
+        <p>Email: <a href="mailto:your@email.com">your@email.com</a></p>
+        <p>LinkedIn: <a href="https://linkedin.com/in/yourprofile" target="_blank">linkedin.com/in/yourprofile</a></p>
+        <p>Phone: +123-456-7890</p>
+    </section>
+
 </body>
 </html>
