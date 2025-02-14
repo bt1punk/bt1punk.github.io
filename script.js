@@ -14,3 +14,8 @@ function navigateTo(sectionId) {
 function toggleMenu() {
     document.getElementById("navLinks").classList.toggle("show");
 }
+
+// Dark Mode Toggle
+function toggleTheme() {
+    document.body.classList.toggle("dark-mode");
+}
