@@ -12,49 +12,51 @@
     <!-- Navigation Bar -->
     <nav>
         <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#intro">Intro</a></li>
-            <li><a href="#work">Work</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#" onclick="showSection('home')">Home</a></li>
+            <li><a href="#" onclick="showSection('intro')">Intro</a></li>
+            <li><a href="#" onclick="showSection('work')">Work</a></li>
+            <li><a href="#" onclick="showSection('about')">About</a></li>
+            <li><a href="#" onclick="showSection('contact')">Contact</a></li>
         </ul>
     </nav>
 
-    <!-- Sections -->
-    <section id="home">
-        <h1>Welcome to My Portfolio</h1>
-        <p>I'm Bishnu Timilsina, a Front Desk Manager passionate about delivering exceptional service.</p>
-        <img src="images/home.jpg" alt="Home Image">
-    </section>
+    <!-- Sections (Initially only Home is visible) -->
+    <div id="content">
+        <section id="home" class="page active">
+            <h1>Welcome to My Portfolio</h1>
+            <p>I'm Bishnu Timilsina, a Front Desk Manager passionate about delivering exceptional service.</p>
+            <img src="images/home.jpg" alt="Home Image">
+        </section>
 
-    <section id="intro">
-        <h1>Introduction</h1>
-        <p>With years of experience in customer service and office management, I ensure smooth and efficient front-desk operations.</p>
-        <img src="images/intro.jpg" alt="Intro Image">
-    </section>
+        <section id="intro" class="page">
+            <h1>Introduction</h1>
+            <p>With years of experience in customer service and office management, I ensure smooth and efficient front-desk operations.</p>
+            <img src="images/intro.jpg" alt="Intro Image">
+        </section>
 
-    <section id="work">
-        <h1>My Work</h1>
-        <ul>
-            <li>Managed high-volume front desk operations</li>
-            <li>Implemented customer service improvements</li>
-            <li>Organized corporate meetings and events</li>
-        </ul>
-        <img src="images/work.jpg" alt="Work Image">
-    </section>
+        <section id="work" class="page">
+            <h1>My Work</h1>
+            <ul>
+                <li>Managed high-volume front desk operations</li>
+                <li>Implemented customer service improvements</li>
+                <li>Organized corporate meetings and events</li>
+            </ul>
+            <img src="images/work.jpg" alt="Work Image">
+        </section>
 
-    <section id="about">
-        <h1>About Me</h1>
-        <p>I specialize in handling guest relations, administrative tasks, and ensuring a seamless front-office experience.</p>
-        <img src="images/about.jpg" alt="About Image">
-    </section>
+        <section id="about" class="page">
+            <h1>About Me</h1>
+            <p>I specialize in handling guest relations, administrative tasks, and ensuring a seamless front-office experience.</p>
+            <img src="images/about.jpg" alt="About Image">
+        </section>
 
-    <section id="contact">
-        <h1>Contact Me</h1>
-        <p>Email: <a href="mailto:your@email.com">your@email.com</a></p>
-        <p>LinkedIn: <a href="https://linkedin.com/in/yourprofile" target="_blank">linkedin.com/in/yourprofile</a></p>
-        <p>Phone: +123-456-7890</p>
-    </section>
+        <section id="contact" class="page">
+            <h1>Contact Me</h1>
+            <p>Email: <a href="mailto:your@email.com">your@email.com</a></p>
+            <p>LinkedIn: <a href="https://linkedin.com/in/yourprofile" target="_blank">linkedin.com/in/yourprofile</a></p>
+            <p>Phone: +123-456-7890</p>
+        </section>
+    </div>
 
 </body>
 </html>
