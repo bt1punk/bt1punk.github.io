@@ -23,3 +23,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const sectionFromURL = window.location.hash.replace("#", "") || "home";
     showSection(sectionFromURL);
 });
+
+// Toggle mobile menu
+function toggleMenu() {
+    document.querySelector("nav ul").classList.toggle("show");
+}
