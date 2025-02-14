@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bishnu Timilsina | Portfolio</title>
+    <title>Portfolio | Bishnu Timilsina</title>
     <link rel="stylesheet" href="styles.css">
     <script defer src="script.js"></script>
 </head>
 <body>
 
-    <!-- Navigation Bar -->
+    <!-- Navigation Menu -->
     <nav>
+        <div class="logo">Bishnu Timilsina</div>
         <ul>
             <li><a href="#" onclick="showSection('home')">Home</a></li>
             <li><a href="#" onclick="showSection('intro')">Intro</a></li>
@@ -18,12 +19,13 @@
             <li><a href="#" onclick="showSection('about')">About</a></li>
             <li><a href="#" onclick="showSection('contact')">Contact</a></li>
         </ul>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
     </nav>
 
-    <!-- Sections (Initially only Home is visible) -->
+    <!-- Sections (Only Home is visible by default) -->
     <div id="content">
         <section id="home" class="page active">
-            <h1>Welcome to My Portfolio</h1>
+            <h1>Welcome</h1>
             <p>I'm Bishnu Timilsina, a Front Desk Manager passionate about delivering exceptional service.</p>
             <img src="images/home.jpg" alt="Home Image">
         </section>
