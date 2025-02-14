@@ -2,60 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bishnu Timilsina | Portfolio</title>
     <link rel="stylesheet" href="styles.css">
-    <script defer src="script.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#" class="logo">Bishnu <span>Timilsina</span></a>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#" onclick="navigateTo('home')">Home</a></li>
-                <li><a href="#" onclick="navigateTo('about')">About</a></li>
-                <li><a href="#" onclick="navigateTo('projects')">Projects</a></li>
-                <li><a href="#" onclick="navigateTo('contact')">Contact</a></li>
-                <li><button class="theme-toggle" onclick="toggleTheme()">🌓</button></li>
-            </ul>
-            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-        </div>
+    <nav>
+        <ul>
+            <li><a href="#" onclick="loadPage('home.html')">Home</a></li>
+            <li><a href="#" onclick="loadPage('about.html')">About</a></li>
+            <li><a href="#" onclick="loadPage('projects.html')">Projects</a></li>
+            <li><a href="#" onclick="loadPage('contact.html')">Contact</a></li>
+        </ul>
     </nav>
 
-    <!-- Page Wrapper -->
-    <div class="wrapper">
-        <section id="home" class="section active">
-            <div class="content">
-                <h1>Hi, I'm <span>Bishnu Timilsina</span></h1>
-                <p>Front Desk Manager & Receptionist | Customer Service Expert</p>
-            </div>
-        </section>
-
-        <section id="about" class="section">
-            <div class="content">
-                <h2>About Me</h2>
-                <p>Experienced Front Desk Manager specializing in professional guest services, office management, and client relations.</p>
-            </div>
-        </section>
-
-        <section id="projects" class="section">
-            <div class="content">
-                <h2>Projects & Experience</h2>
-                <p>Managed front desk operations for high-end hospitality brands, optimizing customer satisfaction and efficiency.</p>
-            </div>
-        </section>
-
-        <section id="contact" class="section">
-            <div class="content">
-                <h2>Contact Me</h2>
-                <p>Email: example@email.com</p>
-                <p>Phone: +123456789</p>
-            </div>
-        </section>
+    <div id="content">
+        <!-- Dynamic content will be loaded here -->
     </div>
 
+    <script src="script.js"></script>
 </body>
 </html>
