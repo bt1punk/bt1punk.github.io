@@ -1,31 +1,27 @@
-// Toggle mobile menu and change hamburger to cross
+// Toggle sidebar navigation
 function toggleMenu() {
-    var menu = document.getElementById("nav-menu");
-    var icon = document.getElementById("menu-icon");
+    var sidebar = document.getElementById("sidebar");
+    sidebar.classList.toggle("active");
 
-    menu.classList.toggle("active");
-
-    // Change icon based on menu state
-    if (menu.classList.contains("active")) {
-        icon.innerHTML = "✖"; // Change to cross
+    // Change menu icon
+    var icon = document.getElementById("menu-toggle");
+    if (sidebar.classList.contains("active")) {
+        icon.innerHTML = "✖";
     } else {
-        icon.innerHTML = "☰"; // Change back to hamburger
+        icon.innerHTML = "☰";
     }
 }
 
-// Function to show selected section smoothly
+// Function to switch sections
 function showSection(sectionId) {
     document.querySelectorAll(".page").forEach(page => {
         page.classList.remove("active");
     });
 
-    // Activate selected section
-    var activeSection = document.getElementById(sectionId);
-    activeSection.classList.add("active");
+    document.getElementById(sectionId).classList.add("active");
 
-    // Close mobile menu after selection
-    var menu = document.getElementById("nav-menu");
-    var icon = document.getElementById("menu-icon");
-    menu.classList.remove("active");
-    icon.innerHTML = "☰"; // Reset icon to hamburger
+    // Close sidebar menu on mobile
+    var sidebar = document.getElementById("sidebar");
+    sidebar.classList.remove("active");
+    document.getElementById("menu-toggle").innerHTML = "☰";
 }
