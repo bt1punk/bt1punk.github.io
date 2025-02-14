@@ -26,6 +26,7 @@
             width: 100%;
             height: 500px;
             touch-action: none; /* Prevents page scroll inside the model */
+            background-color: transparent;
         }
     </style>
 </head>
@@ -40,10 +41,10 @@
 
     <!-- Content Container -->
     <div id="container">
-        <h2>Test01</h2>
+        <h2>Test02</h2>
         <p>Touch and drag the model to rotate. Scroll the page normally anywhere else.</p>
 
-        <!-- 3D Model Viewer -->
+        <!-- 3D Model Viewer with Background -->
         <model-viewer 
             id="avatar"
             src="model.glb" 
@@ -55,7 +56,10 @@
             interaction-prompt="none"
             camera-orbit="0deg 90deg 3m"  
             min-camera-orbit="auto 90deg auto"  
-            max-camera-orbit="auto 90deg auto">
+            max-camera-orbit="auto 90deg auto"
+            shadow-intensity="1"
+            exposure="1"
+            environment-image="https://modelviewer.dev/shared-assets/environments/moon_1k.hdr">
         </model-viewer>
 
         <h2>About Me</h2>
