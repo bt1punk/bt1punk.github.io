@@ -26,7 +26,7 @@ const loader = new GLTFLoader();
 let model, mixer;
 
 loader.load(
-  'assets/model.glb', // Replace with the path to your GLB file
+  'model.glb', // Replace with the path to your GLB file
   (gltf) => {
     model = gltf.scene;
     scene.add(model);
