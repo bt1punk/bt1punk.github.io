@@ -3,65 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Babylon.js 3D Model</title>
+    <title>Three.js 3D Model with Animation</title>
     <style>
         body { margin: 0; }
         canvas { display: block; }
     </style>
 </head>
 <body>
-    <!-- Loading Babylon.js library -->
-    <script src="https://cdn.babylonjs.com/babylon.js"></script>
-    <script src="https://cdn.babylonjs.com/loaders/babylon.glTF2FileLoader.js"></script>
+    <!-- Include Three.js -->
+    <script src="https://cdn.jsdelivr.net/npm/three/build/three.min.js"></script>
+    <!-- Include GLTFLoader -->
+    <script src="https://cdn.jsdelivr.net/npm/three/examples/jsm/loaders/GLTFLoader.js"></script>
+    <!-- Include OrbitControls -->
+    <script src="https://cdn.jsdelivr.net/npm/three/examples/jsm/controls/OrbitControls.js"></script>
+
     <script>
-        // Set up the Babylon.js scene
-        const canvas = document.createElement('canvas');
-        document.body.appendChild(canvas);
-        const engine = new BABYLON.Engine(canvas, true);
-        const scene = new BABYLON.Scene(engine);
+        // Set up the scene, camera, and renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
 
-        // Create a camera and position it
-        const camera = new BABYLON.ArcRotateCamera("camera", Math.PI / 2, Math.PI / 4, 4, BABYLON.Vector3.Zero(), scene);
-        camera.attachControl(canvas, true);
-
-        // Add lighting to the scene
-        const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0), scene);
+        // Add lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambientLight);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(5, 5, 5).normalize();
+        scene.add(directionalLight);
 
         // Load the 3D model
-        BABYLON.SceneLoader.Append("", "model.glb", scene, function (scene) {
-            console.log('Model loaded successfully');
-            const model = scene.meshes[0];
+        const loader = new THREE.GLTFLoader();
+        let mixer; // Animation mixer
+        loader.load(
+            'model.glb', // Replace with the path to your model
+            (gltf) => {
+                const model = gltf.scene;
+                scene.add(model);
 
-            // Adjust the model position, scale, or rotation if needed
-            model.position.set(0, 0, 0);
-            model.scaling.set(1, 1, 1);
-            model.rotation.y = Math.PI / 4; // Rotate the model slightly
+                // Check if the model has animations
+                if (gltf.animations && gltf.animations.length > 0) {
+                    mixer = new THREE.AnimationMixer(model);
+                    const clip = gltf.animations[0]; // Use the first animation
+                    const action = mixer.clipAction(clip);
+                    action.play();
+                }
 
-            // Add simple animation
-            const frameRate = 10;
-            const xSlide = new BABYLON.Animation("xSlide", "position.x", frameRate, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+                // Adjust the model position, scale, or rotation if needed
+                model.position.set(0, 0, 0);
+                model.scale.set(1, 1, 1);
+                model.rotation.y = Math.PI / 4; // Rotate the model slightly
+            },
+            (xhr) => {
+                console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+            },
+            (error) => {
+                console.error('Error loading model', error);
+            }
+        );
 
-            const keyFrames = []; 
-            keyFrames.push({ frame: 0, value: 0 });
-            keyFrames.push({ frame: frameRate, value: 1 });
-            keyFrames.push({ frame: 2 * frameRate, value: 0 });
+        // Position the camera
+        camera.position.z = 5;
 
-            xSlide.setKeys(keyFrames);
-            model.animations.push(xSlide);
+        // Add OrbitControls
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true; // Smooth camera movement
+        controls.dampingFactor = 0.05;
 
-            scene.beginAnimation(model, 0, 2 * frameRate, true);
-        });
+        // Animation loop
+        const clock = new THREE.Clock();
+        function animate() {
+            requestAnimationFrame(animate);
 
-        // Render loop
-        engine.runRenderLoop(function () {
-            scene.render();
-        });
+            // Update the animation mixer
+            if (mixer) {
+                const delta = clock.getDelta();
+                mixer.update(delta);
+            }
+
+            // Update controls
+            controls.update();
+
+            // Render the scene
+            renderer.render(scene, camera);
+        }
+        animate();
 
         // Handle window resize
-        window.addEventListener('resize', function () {
-            engine.resize();
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
         });
     </script>
-    <p> test005 </p>
+    <p> testing </p>
 </body>
 </html>
