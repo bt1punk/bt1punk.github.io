@@ -32,6 +32,7 @@
         loader.load(
             'model.glb', // Replace with the path to your model
             (gltf) => {
+                console.log('Model loaded successfully');
                 const model = gltf.scene;
                 scene.add(model);
 
