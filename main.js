@@ -12,8 +12,8 @@ document.body.appendChild(renderer.domElement);
 // Add lighting
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-directionalLight.position.set(1, 1, 1).normalize();
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+directionalLight.position.set(5, 5, 5).normalize();
 scene.add(directionalLight);
 
 // Add OrbitControls for camera movement
@@ -26,10 +26,18 @@ const loader = new GLTFLoader();
 let model, mixer;
 
 loader.load(
-  'model.glb', // Replace with the path to your GLB file
+  'assets/model.glb', // Replace with the correct path to your GLB file
   (gltf) => {
+    console.log('GLB file loaded successfully:', gltf);
     model = gltf.scene;
     scene.add(model);
+
+    // Debug: Log the model's bone structure
+    model.traverse((node) => {
+      if (node.isBone) {
+        console.log('Bone found:', node.name);
+      }
+    });
 
     // Set up the animation mixer
     mixer = new THREE.AnimationMixer(model);
