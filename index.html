@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Namaste Gesture in Three.js</title>
+    <title>Three.js 3D Model</title>
     <style>
         body { margin: 0; }
         canvas { display: block; }
@@ -11,65 +11,59 @@
 </head>
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r146/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.146/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three/examples/js/loaders/GLTFLoader.js"></script>
     <script>
         // Set up the scene, camera, and renderer
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer();
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
-        // Add lights (optional but recommended)
-        const light = new THREE.DirectionalLight(0xffffff, 1);
-        light.position.set(1, 1, 1).normalize();
-        scene.add(light);
+        // Add lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambientLight);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(5, 5, 5).normalize();
+        scene.add(directionalLight);
 
-        // Load the GLTF model
+        // Load the 3D model
         const loader = new THREE.GLTFLoader();
-        loader.load('model.glb', (gltf) => {
-            const model = gltf.scene;
-            scene.add(model);
+        loader.load(
+            'path/to/your/model.glb', // Replace with the path to your model
+            (gltf) => {
+                const model = gltf.scene;
+                scene.add(model);
 
-            // Find the bones by name (adjust names based on your model)
-            const rightShoulder = model.getObjectByName('RightShoulder');
-            const rightArm = model.getObjectByName('RightArm');
-            const rightForearm = model.getObjectByName('RightForearm');
-            const rightHand = model.getObjectByName('RightHand');
-
-            const leftShoulder = model.getObjectByName('LeftShoulder');
-            const leftArm = model.getObjectByName('LeftArm');
-            const leftForearm = model.getObjectByName('LeftForearm');
-            const leftHand = model.getObjectByName('LeftHand');
-
-            // Check if the bones were found
-            if (rightShoulder && rightArm && rightForearm && rightHand &&
-                leftShoulder && leftArm && leftForearm && leftHand) {
-                // Rotate the right arm hierarchy
-                rightShoulder.rotation.y = -Math.PI / 4; // Rotate shoulder outward
-                rightArm.rotation.x = Math.PI / 4; // Rotate arm forward
-                rightForearm.rotation.x = Math.PI / 4; // Rotate forearm forward
-                rightHand.rotation.x = Math.PI / 2; // Rotate hand to face left
-
-                // Rotate the left arm hierarchy
-                leftShoulder.rotation.y = Math.PI / 4; // Rotate shoulder outward
-                leftArm.rotation.x = Math.PI / 4; // Rotate arm forward
-                leftForearm.rotation.x = Math.PI / 4; // Rotate forearm forward
-                leftHand.rotation.x = Math.PI / 2; // Rotate hand to face right
-            } else {
-                console.error('Arm bones not found! Check the bone names in your model.');
+                // Adjust the model position, scale, or rotation if needed
+                model.position.set(0, 0, 0);
+                model.scale.set(1, 1, 1);
+                model.rotation.y = Math.PI / 4; // Rotate the model slightly
+            },
+            (xhr) => {
+                console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+            },
+            (error) => {
+                console.error('Error loading model', error);
             }
-        });
+        );
 
         // Position the camera
         camera.position.z = 5;
 
-        // Render the scene
+        // Animation loop
         function animate() {
             requestAnimationFrame(animate);
             renderer.render(scene, camera);
         }
         animate();
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
     </script>
 </body>
 </html>
