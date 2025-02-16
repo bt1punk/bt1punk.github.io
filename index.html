@@ -3,99 +3,277 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Three.js 3D Model with Animation</title>
+    <title>3D Model Viewer with Scroll Interaction</title>
     <style>
-        body { margin: 0; }
-        canvas { display: block; }
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+        }
+        #canvas-container {
+            width: 100%;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: -1;
+        }
+        #loading-screen {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        #loading-screen img {
+            max-width: 100%;
+            max-height: 300px;
+        }
+        #loading-progress {
+            text-align: center;
+            color: white;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
-    <!-- Include Three.js -->
-    <script src="https://cdn.jsdelivr.net/npm/three/build/three.min.js"></script>
-    <!-- Include GLTFLoader -->
-    <script src="https://cdn.jsdelivr.net/npm/three/examples/jsm/loaders/GLTFLoader.js"></script>
-    <!-- Include OrbitControls -->
-    <script src="https://cdn.jsdelivr.net/npm/three/examples/jsm/controls/OrbitControls.js"></script>
+    <div id="canvas-container">
+        <canvas id="cubeCanvas"></canvas>
+        <div id="loading-screen">
+            <div>
+                <img decoding="async" src="http://video-on-scroll.local/wp-content/uploads/2024/09/futuristic-tunnel-corridor-with-neon-glowing-light-2023-11-27-04-53-49-utc.jpeg" alt="Loading">
+                <p id="loading-progress">Loading 3D Model: 0%</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Three.js core scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+
+    <!-- Postprocessing scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
 
     <script>
-        // Set up the scene, camera, and renderer
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
+        const MODEL_URL = 'http://video-on-scroll.local/wp-content/uploads/2024/09/steampunk_underwater_explorer.glb';
 
-        // Add lighting
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-        scene.add(ambientLight);
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-        directionalLight.position.set(5, 5, 5).normalize();
-        scene.add(directionalLight);
+        const CAMERA_FOV = 55;
+        const CAMERA_NEAR = 0.1;
+        const CAMERA_FAR = 3000;
+        const CAMERA_DISTANCE_FACTOR_DESKTOP = 32;
+        const CAMERA_DISTANCE_FACTOR_MOBILE = 100;
+        const CAMERA_OFFSET_X = 0;
+        const CAMERA_OFFSET_Y = 0;
 
-        // Load the 3D model
-        const loader = new THREE.GLTFLoader();
-        let mixer; // Animation mixer
-        loader.load(
-            'model.glb', // Replace with the path to your model
-            (gltf) => {
-                const model = gltf.scene;
-                scene.add(model);
+        // Bloom effect variables
+        const BLOOM_INTENSITY = 3;
+        const BLOOM_THRESHOLD = 0.4;
+        const BLOOM_RADIUS = 0.65;
 
-                // Check if the model has animations
-                if (gltf.animations && gltf.animations.length > 0) {
-                    mixer = new THREE.AnimationMixer(model);
-                    const clip = gltf.animations[0]; // Use the first animation
-                    const action = mixer.clipAction(clip);
-                    action.play();
-                }
+        // Updated light settings
+        const DIRECTIONAL_LIGHT_COLOR = 0xffffff;
+        const DIRECTIONAL_LIGHT_INTENSITY = 2;
+        const AMBIENT_LIGHT_COLOR = 0xffffff;
+        const AMBIENT_LIGHT_INTENSITY = 1;
+        const ADDITIONAL_LIGHT_COLOR = 0xffffff;
+        const ADDITIONAL_LIGHT_INTENSITY = 2;
 
-                // Adjust the model position, scale, or rotation if needed
-                model.position.set(0, 0, 0);
-                model.scale.set(1, 1, 1);
-                model.rotation.y = Math.PI / 4; // Rotate the model slightly
-            },
-            (xhr) => {
-                console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-            },
-            (error) => {
-                console.error('Error loading model', error);
-            }
-        );
+        // Background color settings
+        const BACKGROUND_COLOUR_SCENE = 0x000000; // Black background
+        const BACKGROUND_COLOUR_TRANSPARENCE = 0; // Fully opaque
 
-        // Position the camera
-        camera.position.z = 5;
+        let canvas, renderer, scene, camera, light, ambientLight, additionalLight;
+        let model, rotationGroup, mixer, clock, composer;
+        let targetRotation = 0;
+        let currentRotation = 0;
 
-        // Add OrbitControls
-        const controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true; // Smooth camera movement
-        controls.dampingFactor = 0.05;
+        function setupScene() {
+            canvas = document.getElementById('cubeCanvas');
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: false, antialias: true });
+            renderer.setClearColor(BACKGROUND_COLOUR_SCENE, BACKGROUND_COLOUR_TRANSPARENCE);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-        // Animation loop
-        const clock = new THREE.Clock();
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(BACKGROUND_COLOUR_SCENE);
+            camera = new THREE.PerspectiveCamera(CAMERA_FOV, canvas.clientWidth / canvas.clientHeight, CAMERA_NEAR, CAMERA_FAR);
+
+            // Use updated light settings
+            ambientLight = new THREE.AmbientLight(AMBIENT_LIGHT_COLOR, AMBIENT_LIGHT_INTENSITY);
+            scene.add(ambientLight);
+
+            light = new THREE.DirectionalLight(DIRECTIONAL_LIGHT_COLOR, DIRECTIONAL_LIGHT_INTENSITY);
+            light.position.set(10, 10, 10).normalize();
+            scene.add(light);
+
+            additionalLight = new THREE.PointLight(ADDITIONAL_LIGHT_COLOR, ADDITIONAL_LIGHT_INTENSITY, 100);
+            additionalLight.position.set(-15, 0, -15);
+            scene.add(additionalLight);
+
+            rotationGroup = new THREE.Group();
+            scene.add(rotationGroup);
+
+            clock = new THREE.Clock();
+
+            // Postprocessing setup
+            composer = new THREE.EffectComposer(renderer);
+            const renderPass = new THREE.RenderPass(scene, camera);
+            renderPass.clearColor = new THREE.Color(BACKGROUND_COLOUR_SCENE);
+            renderPass.clearAlpha = BACKGROUND_COLOUR_TRANSPARENCE;
+            composer.addPass(renderPass);
+
+            const bloomPass = new THREE.UnrealBloomPass(
+                new THREE.Vector2(window.innerWidth / 2, window.innerHeight / 2), // Reduced resolution
+                BLOOM_INTENSITY,
+                BLOOM_THRESHOLD,
+                BLOOM_RADIUS
+            );
+            composer.addPass(bloomPass);
+
+            resizeCanvas();
+        }
+
+        function fitModelToCanvas() {
+            if (!model) return;
+
+            const box = new THREE.Box3().setFromObject(model);
+            const center = box.getCenter(new THREE.Vector3());
+
+            model.position.sub(center);
+
+            const isMobile = window.innerWidth <= 768;
+            let distance = isMobile ? CAMERA_DISTANCE_FACTOR_MOBILE : CAMERA_DISTANCE_FACTOR_DESKTOP;
+
+            camera.position.set(CAMERA_OFFSET_X, CAMERA_OFFSET_Y, distance);
+            camera.lookAt(new THREE.Vector3(0, 0, 0));
+            camera.updateProjectionMatrix();
+
+            renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+        }
+
         function animate() {
             requestAnimationFrame(animate);
 
-            // Update the animation mixer
+            // Smoothly interpolate rotation
+            currentRotation += (targetRotation - currentRotation) * 0.1;
+            rotationGroup.rotation.y = currentRotation;
+
             if (mixer) {
-                const delta = clock.getDelta();
-                mixer.update(delta);
+                mixer.update(clock.getDelta());
             }
 
-            // Update controls
-            controls.update();
-
-            // Render the scene
-            renderer.render(scene, camera);
+            composer.render();
         }
-        animate();
 
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
+        function resizeCanvas() {
+            if (canvas && renderer && camera) {
+                camera.aspect = canvas.clientWidth / canvas.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+                composer.setSize(canvas.clientWidth, canvas.clientHeight);
+                if (model) {
+                    fitModelToCanvas();
+                }
+            }
+        }
+
+        function updateLoadingScreen(progress) {
+            const progressText = document.getElementById('loading-progress');
+            if (progressText) {
+                progressText.textContent = `Loading 3D Model: ${Math.round(progress * 100)}%`;
+            }
+        }
+
+        function hideLoadingScreen() {
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen) {
+                loadingScreen.style.display = 'none';
+            }
+        }
+
+        function showError(message) {
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen) {
+                loadingScreen.innerHTML = `<div style="text-align: center; color: white;">${message}</div>`;
+            }
+        }
+
+        function startModelLoad() {
+            const loadingManager = new THREE.LoadingManager();
+
+            loadingManager.onProgress = function (url, itemsLoaded, itemsTotal) {
+                updateLoadingScreen(itemsLoaded / itemsTotal);
+            };
+
+            loadingManager.onLoad = function () {
+                hideLoadingScreen();
+            };
+
+            loadingManager.onError = function (url) {
+                showError(`Failed to load resource: ${url}. Please check the URL and try again.`);
+            };
+
+            const loader = new THREE.GLTFLoader(loadingManager);
+
+            loader.load(MODEL_URL,
+                function (gltf) {
+                    model = gltf.scene;
+                    rotationGroup.add(model);
+
+                    fitModelToCanvas();
+
+                    if (gltf.animations && gltf.animations.length) {
+                        mixer = new THREE.AnimationMixer(model);
+                        const animation = gltf.animations[0];
+                        const action = mixer.clipAction(animation);
+                        action.play();
+                    }
+
+                    animate();
+                },
+                function (xhr) {
+                    // Progress callback
+                },
+                function (error) {
+                    showError(`Failed to load 3D model: ${error.message}. Please check the model URL and try again.`);
+                }
+            );
+        }
+
+        function onScroll() {
+            if (model) {
+                const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+                targetRotation = scrollPercent * 2 * Math.PI;
+            }
+        }
+
+        function initiateBackgroundLoading() {
+            setupScene();
+            startModelLoad();
+        }
+
+        initiateBackgroundLoading();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Use requestAnimationFrame for smoother scrolling
+        let ticking = false;
+        window.addEventListener('scroll', function () {
+            if (!ticking) {
+                window.requestAnimationFrame(function () {
+                    onScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
         });
     </script>
-    <p> testing </p>
 </body>
 </html>
