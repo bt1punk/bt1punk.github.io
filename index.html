@@ -1,66 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GLB Model with FBX Animation</title>
-    <style>
-        body, html { margin: 0; padding: 0; overflow: hidden; height: 100%; }
-        canvas { display: block; }
-    </style>
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/FBXLoader.js"></script>
-    <script>
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
-
-        const clock = new THREE.Clock();
-        let glbModel, fbxAnimation, mixer;
-
-        // Load GLB model
-        const loaderGLB = new THREE.GLTFLoader();
-        loaderGLB.load('model.glb', (gltf) => {
-            glbModel = gltf.scene;
-            scene.add(glbModel);
-        });
-
-        // Load FBX animation
-        const loaderFBX = new THREE.FBXLoader();
-        loaderFBX.load('model.fbx', (fbx) => {
-            fbxAnimation = fbx.animations[0]; // Extract animation clip
-            mixer = new THREE.AnimationMixer(glbModel);
-            const action = mixer.clipAction(fbxAnimation);
-            action.play();
-        });
-
-        // Lighting
-        const light = new THREE.DirectionalLight(0xffffff, 1);
-        light.position.set(5, 5, 5).normalize();
-        scene.add(light);
-
-        // Camera position
-        camera.position.z = 5;
-
-        // Animation loop
-        function animate() {
-            requestAnimationFrame(animate);
-            if (mixer) mixer.update(clock.getDelta());
-            renderer.render(scene, camera);
-        }
-        animate();
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-    </script>
+    <header>
+        <div class="content-fit">
+            <div class="logo">Bishnu Test</div>
+            <nav>
+                <ul>
+                    <li>Contacts</li>
+                    <li>Category</li>
+                    <li>Login</li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="section" id="banner">
+        <div class="content-fit">
+            <div class="title" data-before="WEBSITEDESIGN">3D testing</div>
+        </div>
+        <img src="img/flower.png" class="decorate" alt="" style="width: 50vw; bottom: 0; right: 0;">
+        <img src="img/leaf.png" class="decorate" alt="" style="width: 30vw; bottom: 0; left: 0;">
+    </div>
+    <div class="section" id="intro">
+        <div class="content-fit">
+            <div class="number">01</div>
+            <div class="des">
+                <div class="title">3d animation design for website</div>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus voluptas a porro libero
+                    recusandae quae, aut ratione, incidunt laborum, necessitatibus similique enim doloremque ex.
+                    Laudantium obcaecati aspernatur doloremque illo beatae, maxime hic itaque consequatur nisi
+                    accusantium veritatis, voluptatem ratione! Placeat numquam nisi reiciendis harum quibusdam tempore
+                    eaque deleniti accusantium, veniam quae eos sed, asperiores laborum corporis odit mollitia
+                    consequatur adipisci? Quibusdam quis eos debitis non esse blanditiis laudantium rerum odit tempora?
+                    Corrupti maiores velit consequuntur cupiditate reiciendis similique provident repudiandae.</p>
+            </div>
+        </div>
+    </div>
+    <div class="section" id="description">
+        <div class="content-fit">
+            <div class="number">02</div>
+            <div class="des">
+                <div class="title">bishnu</div>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus voluptas a porro libero
+                    recusandae quae, aut ratione, incidunt laborum, necessitatibus similique enim doloremque ex.
+                    Laudantium obcaecati aspernatur doloremque illo beatae, maxime hic itaque consequatur nisi
+                    accusantium veritatis, voluptatem ratione! Placeat numquam nisi reiciendis harum quibusdam tempore
+                    eaque deleniti accusantium, veniam quae eos sed, asperiores laborum corporis odit mollitia
+                    consequatur adipisci? Quibusdam quis eos debitis non esse blanditiis laudantium rerum odit tempora?
+                    Corrupti maiores velit consequuntur cupiditate reiciendis similique provident repudiandae.</p>
+            </div>
+        </div>
+        <img src="img/leaf1.png" class="decorate" alt="" style="width: 70vw; bottom: 0; right: 0; z-index: 101;">
+    </div>
+    <div class="section" id="contact">
+        <div class="content-fit">
+            <div class="number">03</div>
+            <div class="des">
+                <div class="title">CONTACT</div>
+                <table>
+                    <tr>
+                        <td>Email</td>
+                        <td>test@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>Phone</td>
+                        <td>+841.231.235</td>
+                    </tr>
+                    <tr>
+                        <td>Website</td>
+                        <td>bishnutimilsina.com.np</td>
+                    </tr>
+                    <tr>
+                        <td>Youtube</td>
+                        <td>@bishnu</td>
+                    </tr>
+                </table>
+                <div class="sign">bishnu</div>
+            </div>
+        </div>
+    </div>
 </body>
+
+
+<div id="container3D"></div>
+<script type="module" src="script.js"></script>
 </html>
